@@ -9,12 +9,12 @@ const storeQueue = (arr) => {
 let pageNo = 1;
 
 const dataCrawler = async () => {
-  const url = taskArray.shift();
-  console.log("URL: ", url);
-  const currentQuestion = await Question.findOne({ url });
+  const quesUrl = taskArray.shift();
+  console.log("URL: ", quesUrl);
+  const currentQuestion = await Question.findOne({ quesUrl });
 
   if (!currentQuestion) {
-    await retrieveQuesData(url, pageNo, storeQueue);
+    await retrieveQuesData(quesUrl, pageNo, storeQueue);
   } else {
     currentQuestion.totalReferenceCount += 1;
     await currentQuestion.save();
