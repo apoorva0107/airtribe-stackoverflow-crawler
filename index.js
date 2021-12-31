@@ -4,7 +4,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const dotenv = require('dotenv');
 
-// const Question = require("./model/questions");
+const Question = require("./model/questions");
 
 const taskArray = [];
 
@@ -43,4 +43,29 @@ const getQuestions = async (pageNo, callBack) => {
     }
 };
 
-getQuestions(1, storeQueue);
+// getQuestions(1, storeQueue);
+
+retrieveQuesData = async (url, pageNo, callBack) => {
+  try {
+    const quesData = {
+        quesUrl: url,
+        quesRefCount: 1
+    };
+    const urlData = await axios.get(url);
+    const $ = cheerio.load(urlData.data);
+    quesData.quesName = $(`${quesName}`).text();
+    quesData.quesTotalUpvotes = $(`${quesUpvotes}`).text().trim().split(" ")[0].trim();
+    let quesNumAnswers = $(`${noAnswer}`).text().trim().split(" ")[0].trim();
+    if (quesNumAnswers.length > 0) {
+        quesData.quesTotalAnswers = 0;
+    } else {
+        quesData.quesTotalAnswers = $(`${quesAnswer}`).text();
+    }
+    await Question.create(quesData);
+    console.log(quesData);
+  } catch (error) {
+    throw error;
+  }
+};
+
+retrieveQuesData('https://stackoverflow.com/questions/70544328/how-to-collect-all-components-css-styles-to-one', 1, storeQueue);
