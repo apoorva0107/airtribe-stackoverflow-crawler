@@ -15,3 +15,13 @@ Things you should keep in mind:
 2. Your solution needs to be **asynchronous** in nature.
 3. If you are using **request.js**, do not use its connection pool to throttle # of requests. 
 4. You can use cheerio or similar library for HTML parsing.
+
+### Steps to run the project:
+- Clone the repository 
+```
+https://github.com/apoorva0107/airtribe-stackoverflow-crawler.git
+```
+- cd airtribe-stackoverflow-crawler
+- npm install
+- npm start
+ 
