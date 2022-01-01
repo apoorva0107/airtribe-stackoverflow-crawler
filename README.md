@@ -24,4 +24,7 @@ https://github.com/apoorva0107/airtribe-stackoverflow-crawler.git
 - cd airtribe-stackoverflow-crawler
 - npm install
 - npm start
- 
+ ### Explanation:
+- I created an array where I push all the question url in task queue
+- Next, I recursively iterated through the array and crawl individual url and save the url, upvotes, answers and number of occurences in mongoDB database. 
+- All the questions saved in the database are dumped in a CSV file when the user kills a script
